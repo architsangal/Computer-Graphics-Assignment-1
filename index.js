@@ -46,7 +46,7 @@ renderer.setAnimationLoop( animation );
 function animation()
 {
 	renderer.clear(0.8,0.8,0.8,1);
-	renderer.render(scene, shader);
+	renderer.render(scene, shader,m);
 }
 
 function AddElementsToScene(scene)
@@ -124,6 +124,7 @@ document.addEventListener('keydown', (event) => {
 		m++;
 		m = m%4;
 		console.log("m =",m);
+
 		if(m == 0)
 		{
 			AddElementsToScene(scene);
@@ -137,17 +138,23 @@ document.addEventListener('keydown', (event) => {
 		}
 		else if(m == 1)
 		{
-			for(let i=0;i<scene.primitives.length;i++)
-			{
-				let current = scene.primitives[i].transform.getTranslate().slice();
-				current[1] += Math.random()-0.5;
-				scene.primitives[i].transform.setTranslate(current);
+			// was not required
+			// for(let i=0;i<scene.primitives.length;i++)
+			// {
+			// 	let current = scene.primitives[i].transform.getTranslate().slice();
+			// 	current[1] += Math.random()-0.5;
+			// 	scene.primitives[i].transform.setTranslate(current);
 
-			}
+			// }
 		}
 		else if(m == 2)
 		{
-			// TODO Shrinking in m2
+			let centroid = scene.centroid();
+			console.log("*",centroid);
+			for(let i=0;i<scene.primitives.length;i++)
+			{
+				scene.primitives[i].transform.setCompleteCentroid(centroid);
+			}
 		}
 		else
 		{

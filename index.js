@@ -150,7 +150,7 @@ document.addEventListener('keydown', (event) => {
 		else if(m == 2)
 		{
 			let centroid = scene.centroid();
-			console.log("*",centroid);
+			// console.log("*",centroid);
 			for(let i=0;i<scene.primitives.length;i++)
 			{
 				scene.primitives[i].transform.setCompleteCentroid(centroid);

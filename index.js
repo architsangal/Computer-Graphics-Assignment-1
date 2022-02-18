@@ -4,6 +4,7 @@ import {fragmentShaderSrc} from './shaders/fragment.js';
 
 let render_X = 600;
 let render_Y = 600;
+let m = 0;
 
 // begin R0 generation
 const scene_R0 = new Scene();
@@ -23,25 +24,20 @@ function animation_R0()
 }
 // end of R0 generation
 
-const scene = new Scene();
+let scene = new Scene();
 AddElementsToScene(scene);
+for(let i=0;i<scene.primitives.length;i++)
+{
+	let current = scene.primitives[i].transform.getTranslate().slice();
+	current[1] += Math.random()-0.5;
+	scene.primitives[i].transform.setTranslate(current);
+}
+
 
 // Renderer generation
 const renderer = new WebGLRenderer();
 renderer.setSize( render_X, render_Y );
 document.body.appendChild( renderer.domElement );
-
-// Canvas created
-// Adding Events to it
-let canvas = renderer.domElement;
-canvas.addEventListener('mousedown', function(event){ onmousedown(event);});
-function onmousedown(event)
-{
-	let revX = (event.clientX-render_X)/render_X*2-1;
-	let revY = -event.clientY/render_Y*2+1;
-	let nearestShape = scene.getNearestShape(revX,revY,0);
-	console.log(nearestShape.name);
-}
 
 // Generating shader and drawing the shapes on the canvas
 const shader = new Shader(renderer.glContext(), vertexShaderSrc, fragmentShaderSrc);
@@ -119,3 +115,207 @@ function AddElementsToScene(scene)
 	scene.add(parallelogram);
 }
 
+let nearestShape = scene.primitives[0];
+
+document.addEventListener('keydown', (event) => {
+	let key = event.key;
+	if(key == 'm')
+	{
+		m++;
+		m = m%4;
+		console.log("m =",m);
+		if(m == 0)
+		{
+			AddElementsToScene(scene);
+			for(let i=0;i<scene.primitives.length;i++)
+			{
+				let current = scene.primitives[i].transform.getTranslate().slice();
+				current[1] += Math.random()-0.5;
+				scene.primitives[i].transform.setTranslate(current);
+			}
+			
+		}
+		else if(m == 1)
+		{
+			for(let i=0;i<scene.primitives.length;i++)
+			{
+				let current = scene.primitives[i].transform.getTranslate().slice();
+				current[1] += Math.random()-0.5;
+				scene.primitives[i].transform.setTranslate(current);
+
+			}
+		}
+		else if(m == 2)
+		{
+			// TODO Shrinking in m2
+		}
+		else
+		{
+			scene = new Scene();
+		}
+	}
+	else if(key == 'ArrowUp')
+	{
+		if(m == 1)
+		{
+			let current = nearestShape.transform.getTranslate().slice();
+			current[1] += 0.1;
+			nearestShape.transform.setTranslate(current);
+		}
+		else if(m==2)
+		{
+			for(let i=0;i<scene.primitives.length;i++)
+			{
+				let current = scene.primitives[i].transform.getTranslate().slice();
+				current[1] += 0.1;
+				scene.primitives[i].transform.setTranslate(current);
+			}
+		}
+	}
+	else if(key == 'ArrowDown')
+	{
+		if(m == 1)
+		{
+			let current = nearestShape.transform.getTranslate().slice();
+			current[1] -= 0.1;
+			nearestShape.transform.setTranslate(current);
+		}
+		else if(m==2)
+		{
+			for(let i=0;i<scene.primitives.length;i++)
+			{
+				let current = scene.primitives[i].transform.getTranslate().slice();
+				current[1] -= 0.1;
+				scene.primitives[i].transform.setTranslate(current);
+			}
+		}
+	}
+	else if(key == 'ArrowLeft')
+	{
+		if(m == 1)
+		{
+			let current = nearestShape.transform.getTranslate().slice();
+			current[0] -= 0.1;
+			nearestShape.transform.setTranslate(current);
+		}
+		else if(m==2)
+		{
+			for(let i=0;i<scene.primitives.length;i++)
+			{
+				let current = scene.primitives[i].transform.getTranslate().slice();
+				current[0] -= 0.1;
+				scene.primitives[i].transform.setTranslate(current);
+			}
+		}
+	}
+	else if(key == 'ArrowRight')
+	{
+		if(m == 1)
+		{
+			let current = nearestShape.transform.getTranslate().slice();
+			current[0] += 0.1;
+			nearestShape.transform.setTranslate(current);
+		}
+		else if(m==2)
+		{
+			for(let i=0;i<scene.primitives.length;i++)
+			{
+				let current = scene.primitives[i].transform.getTranslate().slice();
+				current[0] += 0.1;
+				scene.primitives[i].transform.setTranslate(current);
+			}
+		}
+	}
+	else if(key == '/')
+	{
+		if(m == 1)
+		{
+			let current = nearestShape.transform.getRotationAngle();
+			current += 3.142/30;
+			nearestShape.transform.setRotationAngle(current);
+		}
+		else if(m==2)
+		{
+			for(let i=0;i<scene.primitives.length;i++)
+			{
+				let current = scene.primitives[i].transform.getRotationAngle();
+				current += 3.142/30;
+				scene.primitives[i].transform.setRotationAngle(current);
+			}
+		}
+	}
+	else if(key == "\\")
+	{
+		if(m == 1)
+		{
+			let current = nearestShape.transform.getRotationAngle();
+			current -= 3.142/30;
+			nearestShape.transform.setRotationAngle(current);
+		}
+		else if(m==2)
+		{
+			for(let i=0;i<scene.primitives.length;i++)
+			{
+				let current = scene.primitives[i].transform.getRotationAngle();
+				current -= 3.142/30;
+				scene.primitives[i].transform.setRotationAngle(current);
+			}
+		}
+	}
+	else if(key == '+')
+	{
+		if(m == 1)
+		{
+			let current = nearestShape.transform.getScale().slice();
+			current[0] += 0.1;
+			current[1] += 0.1;
+			nearestShape.transform.setScale(current);
+		}
+		else if(m==2)
+		{
+			for(let i=0;i<scene.primitives.length;i++)
+			{
+				let current = scene.primitives[i].transform.getScale().slice();
+				current[0] += 0.1;
+				current[1] += 0.1;
+				scene.primitives[i].transform.setScale(current);
+			}
+		}
+	}
+	else if(key == "-")
+	{
+		if(m == 1)
+		{
+			let current = nearestShape.transform.getScale().slice();
+			current[0] -= 0.1;
+			current[1] -= 0.1;
+			nearestShape.transform.setScale(current);
+		}
+		else if(m==2)
+		{
+			for(let i=0;i<scene.primitives.length;i++)
+			{
+				let current = scene.primitives[i].transform.getScale().slice();
+				current[0] -= 0.1;
+				current[1] -= 0.1;
+				scene.primitives[i].transform.setScale(current);
+			}
+		}
+	}
+  }, false);
+
+// Canvas created
+// Adding Events to it
+let canvas = renderer.domElement;
+
+canvas.addEventListener('mousedown', function(event){ onmousedown(event);});
+function onmousedown(event)
+{
+	if(m == 1)
+	{
+		let revX = (event.clientX-render_X)/render_X*2-1;
+		let revY = -event.clientY/render_Y*2+1;
+		nearestShape = scene.getNearestShape(revX,revY,0);
+		console.log(nearestShape.name);
+	}
+}

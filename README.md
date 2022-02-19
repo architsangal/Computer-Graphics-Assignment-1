@@ -2,7 +2,7 @@
 
 For this, you need to serve the static files using any server. eg.
 
--	If you are using VS Code, you can use the 'live server' plugin. (Link)[https://www.freecodecamp.org/news/vscode-live-server-auto-refresh-browser/]
+-	If you are using VS Code, you can use the 'live server' plugin. [Link](https://www.freecodecamp.org/news/vscode-live-server-auto-refresh-browser/)
 -	Install Python3 (if not available).
 -   Run `cd Source\ Code/`
 -	Run command `python3 -m http.server`

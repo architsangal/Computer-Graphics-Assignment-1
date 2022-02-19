@@ -30,7 +30,7 @@ for(let i=0;i<scene.primitives.length;i++)
 {
 	let current = scene.primitives[i].transform.getTranslate().slice();
 	current[1] += Math.random()-0.5;
-	scene.primitives[i].transform.setTranslate(current);
+	scene.primitives[i].transform.setTranslate(current,scene);
 }
 
 
@@ -117,6 +117,23 @@ function AddElementsToScene(scene)
 
 let nearestShape = scene.primitives[0];
 
+function check()
+{
+	let edges = scene.borderVertex();
+	let f=0;
+	edges.forEach(function(element){
+		if((element<=1 && element>=-1) == false)
+		{
+			f=1;
+		}
+	});
+
+	if(f==1)
+		return false;
+	else
+		return true;
+}
+
 document.addEventListener('keydown', (event) => {
 	let key = event.key;
 	if(key == 'm')
@@ -132,7 +149,7 @@ document.addEventListener('keydown', (event) => {
 			{
 				let current = scene.primitives[i].transform.getTranslate().slice();
 				current[1] += Math.random()-0.5;
-				scene.primitives[i].transform.setTranslate(current);
+				scene.primitives[i].transform.setTranslate(current,scene);
 			}
 			
 		}
@@ -143,7 +160,7 @@ document.addEventListener('keydown', (event) => {
 			// {
 			// 	let current = scene.primitives[i].transform.getTranslate().slice();
 			// 	current[1] += Math.random()-0.5;
-			// 	scene.primitives[i].transform.setTranslate(current);
+			// 	scene.primitives[i].transform.setTranslate(current,scene);
 
 			// }
 		}
@@ -167,7 +184,7 @@ document.addEventListener('keydown', (event) => {
 		{
 			let current = nearestShape.transform.getTranslate().slice();
 			current[1] += 0.1;
-			nearestShape.transform.setTranslate(current);
+			nearestShape.transform.setTranslate(current,scene);
 		}
 		else if(m==2)
 		{
@@ -175,7 +192,16 @@ document.addEventListener('keydown', (event) => {
 			{
 				let current = scene.primitives[i].transform.getTranslate_m2().slice();
 				current[1] += 0.1;
-				scene.primitives[i].transform.setTranslate_m2(current);
+				scene.primitives[i].transform.setTranslate_m2(current,scene);
+			}
+			if(check() == false)
+			{
+				for(let i=0;i<scene.primitives.length;i++)
+				{
+					let current = scene.primitives[i].transform.getTranslate_m2().slice();
+					current[1] -= 0.1;
+					scene.primitives[i].transform.setTranslate_m2(current,scene);
+				}
 			}
 		}
 	}
@@ -183,9 +209,10 @@ document.addEventListener('keydown', (event) => {
 	{
 		if(m == 1)
 		{
+			console.log(scene.borderVertex());
 			let current = nearestShape.transform.getTranslate().slice();
 			current[1] -= 0.1;
-			nearestShape.transform.setTranslate(current);
+			nearestShape.transform.setTranslate(current,scene);
 		}
 		else if(m==2)
 		{
@@ -193,7 +220,16 @@ document.addEventListener('keydown', (event) => {
 			{
 				let current = scene.primitives[i].transform.getTranslate_m2().slice();
 				current[1] -= 0.1;
-				scene.primitives[i].transform.setTranslate_m2(current);
+				scene.primitives[i].transform.setTranslate_m2(current,scene);
+			}
+			if(check() == false)
+			{
+				for(let i=0;i<scene.primitives.length;i++)
+				{
+					let current = scene.primitives[i].transform.getTranslate_m2().slice();
+					current[1] += 0.1;
+					scene.primitives[i].transform.setTranslate_m2(current,scene);
+				}	
 			}
 		}
 	}
@@ -203,7 +239,7 @@ document.addEventListener('keydown', (event) => {
 		{
 			let current = nearestShape.transform.getTranslate().slice();
 			current[0] -= 0.1;
-			nearestShape.transform.setTranslate(current);
+			nearestShape.transform.setTranslate(current,scene);
 		}
 		else if(m==2)
 		{
@@ -211,7 +247,16 @@ document.addEventListener('keydown', (event) => {
 			{
 				let current = scene.primitives[i].transform.getTranslate_m2().slice();
 				current[0] -= 0.1;
-				scene.primitives[i].transform.setTranslate_m2(current);
+				scene.primitives[i].transform.setTranslate_m2(current,scene);
+			}
+			if(check() == false)
+			{
+				for(let i=0;i<scene.primitives.length;i++)
+				{
+					let current = scene.primitives[i].transform.getTranslate_m2().slice();
+					current[0] += 0.1;
+					scene.primitives[i].transform.setTranslate_m2(current,scene);
+				}
 			}
 		}
 	}
@@ -221,7 +266,7 @@ document.addEventListener('keydown', (event) => {
 		{
 			let current = nearestShape.transform.getTranslate().slice();
 			current[0] += 0.1;
-			nearestShape.transform.setTranslate(current);
+			nearestShape.transform.setTranslate(current,scene);
 		}
 		else if(m==2)
 		{
@@ -229,7 +274,16 @@ document.addEventListener('keydown', (event) => {
 			{
 				let current = scene.primitives[i].transform.getTranslate_m2().slice();
 				current[0] += 0.1;
-				scene.primitives[i].transform.setTranslate_m2(current);
+				scene.primitives[i].transform.setTranslate_m2(current,scene);
+			}
+			if(check() == false)
+			{
+				for(let i=0;i<scene.primitives.length;i++)
+				{
+					let current = scene.primitives[i].transform.getTranslate_m2().slice();
+					current[0] -= 0.1;
+					scene.primitives[i].transform.setTranslate_m2(current,scene);
+				}	
 			}
 		}
 	}
@@ -249,6 +303,15 @@ document.addEventListener('keydown', (event) => {
 				current += 3.142/30;
 				scene.primitives[i].transform.setRotationAngle_m2(current);
 			}
+			if(check() == false)
+			{
+				for(let i=0;i<scene.primitives.length;i++)
+				{
+					let current = scene.primitives[i].transform.getRotationAngle_m2();
+					current -= 3.142/30;
+					scene.primitives[i].transform.setRotationAngle_m2(current);
+				}	
+			}
 		}
 	}
 	else if(key == "\\")
@@ -266,6 +329,15 @@ document.addEventListener('keydown', (event) => {
 				let current = scene.primitives[i].transform.getRotationAngle_m2();
 				current -= 3.142/30;
 				scene.primitives[i].transform.setRotationAngle_m2(current);
+			}
+			if(check() == false)
+			{
+				for(let i=0;i<scene.primitives.length;i++)
+				{
+					let current = scene.primitives[i].transform.getRotationAngle_m2();
+					current += 3.142/30;
+					scene.primitives[i].transform.setRotationAngle_m2(current);
+				}	
 			}
 		}
 	}
@@ -287,6 +359,16 @@ document.addEventListener('keydown', (event) => {
 				current[1] += 0.1;
 				scene.primitives[i].transform.setScale_m2(current);
 			}
+			if(check() == false)
+			{
+				for(let i=0;i<scene.primitives.length;i++)
+				{
+					let current = scene.primitives[i].transform.getScale_m2().slice();
+					current[0] -= 0.1;
+					current[1] -= 0.1;
+					scene.primitives[i].transform.setScale_m2(current);
+				}					
+			}
 		}
 	}
 	else if(key == "-")
@@ -306,6 +388,16 @@ document.addEventListener('keydown', (event) => {
 				current[0] -= 0.1;
 				current[1] -= 0.1;
 				scene.primitives[i].transform.setScale_m2(current);
+			}
+			if(check() == false)
+			{
+				for(let i=0;i<scene.primitives.length;i++)
+				{
+					let current = scene.primitives[i].transform.getScale_m2().slice();
+					current[0] += 0.1;
+					current[1] += 0.1;
+					scene.primitives[i].transform.setScale_m2(current);
+				}					
 			}
 		}
 	}

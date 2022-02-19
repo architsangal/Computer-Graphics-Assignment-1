@@ -167,10 +167,30 @@ document.addEventListener('keydown', (event) => {
 		else if(m == 2)
 		{
 			let centroid = scene.centroid();
-			// console.log("*",centroid);
 			for(let i=0;i<scene.primitives.length;i++)
 			{
 				scene.primitives[i].transform.setCompleteCentroid(centroid);
+			}
+
+			for(let i=0;i<100;i++)
+			{
+				for(let i=0;i<scene.primitives.length;i++)
+				{
+					let current = scene.primitives[i].transform.getScale_m2().slice();
+					current[0] += 0.1;
+					current[1] += 0.1;
+					scene.primitives[i].transform.setScale_m2(current);
+				}
+				if(check() == false)
+				{
+					for(let i=0;i<scene.primitives.length;i++)
+					{
+						let current = scene.primitives[i].transform.getScale_m2().slice();
+						current[0] -= 0.1;
+						current[1] -= 0.1;
+						scene.primitives[i].transform.setScale_m2(current);
+					}					
+				}
 			}
 		}
 		else
@@ -209,7 +229,6 @@ document.addEventListener('keydown', (event) => {
 	{
 		if(m == 1)
 		{
-			console.log(scene.borderVertex());
 			let current = nearestShape.transform.getTranslate().slice();
 			current[1] -= 0.1;
 			nearestShape.transform.setTranslate(current,scene);

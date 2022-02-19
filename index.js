@@ -173,9 +173,9 @@ document.addEventListener('keydown', (event) => {
 		{
 			for(let i=0;i<scene.primitives.length;i++)
 			{
-				let current = scene.primitives[i].transform.getTranslate().slice();
+				let current = scene.primitives[i].transform.getTranslate_m2().slice();
 				current[1] += 0.1;
-				scene.primitives[i].transform.setTranslate(current);
+				scene.primitives[i].transform.setTranslate_m2(current);
 			}
 		}
 	}
@@ -191,9 +191,9 @@ document.addEventListener('keydown', (event) => {
 		{
 			for(let i=0;i<scene.primitives.length;i++)
 			{
-				let current = scene.primitives[i].transform.getTranslate().slice();
+				let current = scene.primitives[i].transform.getTranslate_m2().slice();
 				current[1] -= 0.1;
-				scene.primitives[i].transform.setTranslate(current);
+				scene.primitives[i].transform.setTranslate_m2(current);
 			}
 		}
 	}
@@ -209,9 +209,9 @@ document.addEventListener('keydown', (event) => {
 		{
 			for(let i=0;i<scene.primitives.length;i++)
 			{
-				let current = scene.primitives[i].transform.getTranslate().slice();
+				let current = scene.primitives[i].transform.getTranslate_m2().slice();
 				current[0] -= 0.1;
-				scene.primitives[i].transform.setTranslate(current);
+				scene.primitives[i].transform.setTranslate_m2(current);
 			}
 		}
 	}
@@ -227,9 +227,9 @@ document.addEventListener('keydown', (event) => {
 		{
 			for(let i=0;i<scene.primitives.length;i++)
 			{
-				let current = scene.primitives[i].transform.getTranslate().slice();
+				let current = scene.primitives[i].transform.getTranslate_m2().slice();
 				current[0] += 0.1;
-				scene.primitives[i].transform.setTranslate(current);
+				scene.primitives[i].transform.setTranslate_m2(current);
 			}
 		}
 	}
@@ -245,9 +245,9 @@ document.addEventListener('keydown', (event) => {
 		{
 			for(let i=0;i<scene.primitives.length;i++)
 			{
-				let current = scene.primitives[i].transform.getRotationAngle();
+				let current = scene.primitives[i].transform.getRotationAngle_m2();
 				current += 3.142/30;
-				scene.primitives[i].transform.setRotationAngle(current);
+				scene.primitives[i].transform.setRotationAngle_m2(current);
 			}
 		}
 	}
@@ -263,9 +263,9 @@ document.addEventListener('keydown', (event) => {
 		{
 			for(let i=0;i<scene.primitives.length;i++)
 			{
-				let current = scene.primitives[i].transform.getRotationAngle();
+				let current = scene.primitives[i].transform.getRotationAngle_m2();
 				current -= 3.142/30;
-				scene.primitives[i].transform.setRotationAngle(current);
+				scene.primitives[i].transform.setRotationAngle_m2(current);
 			}
 		}
 	}
@@ -282,10 +282,10 @@ document.addEventListener('keydown', (event) => {
 		{
 			for(let i=0;i<scene.primitives.length;i++)
 			{
-				let current = scene.primitives[i].transform.getScale().slice();
+				let current = scene.primitives[i].transform.getScale_m2().slice();
 				current[0] += 0.1;
 				current[1] += 0.1;
-				scene.primitives[i].transform.setScale(current);
+				scene.primitives[i].transform.setScale_m2(current);
 			}
 		}
 	}
@@ -302,10 +302,10 @@ document.addEventListener('keydown', (event) => {
 		{
 			for(let i=0;i<scene.primitives.length;i++)
 			{
-				let current = scene.primitives[i].transform.getScale().slice();
+				let current = scene.primitives[i].transform.getScale_m2().slice();
 				current[0] -= 0.1;
 				current[1] -= 0.1;
-				scene.primitives[i].transform.setScale(current);
+				scene.primitives[i].transform.setScale_m2(current);
 			}
 		}
 	}
